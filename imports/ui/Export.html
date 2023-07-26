@@ -1,3 +1,12 @@
 <template name="export">
-    <li>{{name}} {{progress}} {{url}}</li>
+    <li class="py-1">
+        <div class="flex justify-between items-center m-1 w-1/2">
+            <span class="w-1/5">{{name}}</span>
+            <div class="w-1/4 bg-gray-200 rounded-full dark:bg-gray-700">
+                <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                    style="width: {{progress}}%"> {{progress}}%</div>
+            </div>
+            <span class="w-1/4">{{url}}</span>
+        </div>
+    </li>
 </template>
