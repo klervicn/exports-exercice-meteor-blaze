@@ -2,19 +2,17 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ExportsCollection } from '../api/ExportsCollection';
 import { Tracker } from 'meteor/tracker';
-import { ReactiveDict } from 'meteor/reactive-dict';
+import { ReactiveVar } from 'meteor/reactive-var';
 
 import "./App.html";
 import "./Export.html";
 
-const IS_LOADING_STRING = 'isLoading';
-
 Template.mainContainer.onCreated(function mainContainerOnCreated() {
-    this.state = new ReactiveDict();
+    this.isLoading = new ReactiveVar(false);
 
     const handler = Meteor.subscribe('exports');
     Tracker.autorun(() => {
-        this.state.set(IS_LOADING_STRING, !handler.ready());
+        this.isLoading.set(!handler.ready());
     });
 });
 
@@ -28,7 +26,7 @@ Template.mainContainer.helpers({
     },
     isLoading() {
         const instance = Template.instance()
-        return instance.state.get(IS_LOADING_STRING)
+        return instance.isLoading.get()
     }
 })
 
